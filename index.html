@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+<style>
+    .container{
+        background-color: lightblue;
+        height: 700px;
+        width: 600px;
+        margin-left: 40%;
+        border-radius: 10px;
+
+        display: grid;
+        grid-template-rows: 200px repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-areas:
+        "screen screen screen screen"
+        "ac plusminus percent divide"
+        "seven eight nine multiply"
+        "four five six subtract"
+        "one two three add"
+        "zero zero decimal equals";
+        align-items: stretch;
+    }
+    .key{
+      margin: 10px 5px;
+      background-color: aquamarine;
+      border-radius: 20px;
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+
+    }
+    .keyText{
+      font-size: 20px;
+      font-family: "Roboto", sans-serif;
+      text-align: center;
+      padding-top: 10px;
+    }
+    #zero{
+      grid-area: zero;
+      
+    }
+    #one{
+      grid-area: one;
+      
+    }
+    #two{
+      grid-area: two;
+      
+    }
+    #three{
+      grid-area: three;
+      
+    }
+    #four{
+      grid-area: four;
+      
+    }
+    #five{
+      grid-area: five;
+      
+    }
+    #six{
+      grid-area: six;
+      
+    }
+    #seven{
+      grid-area: seven;
+      
+    }
+    #eight{
+      grid-area: eight;
+      
+    }
+    #nine{
+      grid-area: nine;
+      
+    }
+    #percent{
+      grid-area: percent;
+      
+    }
+    #ac{
+      grid-area: ac;
+      
+    }
+    #plusMinus{
+      grid-area: plusminus;
+      
+    }
+    #decimal{
+      grid-area: decimal;
+      
+    }
+    #add{
+      grid-area: add;
+      
+    }
+    #subtract{
+      grid-area: subtract;
+      
+    }
+    #multiply{
+      grid-area: multiply;
+      
+    }
+    #divide{
+      grid-area: divide;
+      
+    }
+    #equals{
+      grid-area: equals;
+      
+    }
+    #screen{
+      grid-area: screen;
+      background-color: black;
+      margin: 5px 5px;
+      border-radius: 10px;
+      align-self: stretch;
+
+    }
+    #screenText{
+      font-family: "Roboto", sans-serif;
+      font-size: 150px;
+      color: white;
+      margin-top: 0px;
+      margin-right: 2px;
+
+      display: block;
+      width: 600px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: right;
+      max-width: 10ch;
+    }
+    .operator{
+      background-color: hsla(27, 100%, 46%, 1);
+    }
+    .operator.highlighted{
+      background-color: hsla(27, 100%, 60%, 1);
+    }
+
+</style>
+<html>
+<head>
+  <title>Calculator</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <h1>
+  </h1>
+  <div class="container">
+    <div id="zero" class="number key">
+      <p class="keyText">
+        0
+      </p>
+    </div>
+    <div id="decimal" class="number key">
+      <p class="keyText">
+        .
+      </p>
+    </div>
+    <div id="one" class="number key">
+      <p class="keyText">
+        1
+      </p>
+    </div>
+    <div id="two" class="number key">
+      <p class="keyText">
+        2
+      </p>
+    </div>
+    <div id="three" class="number key">
+      <p class="keyText">
+        3
+      </p>
+    </div>
+    <div id="four" class="number key">
+      <p class="keyText">
+        4
+      </p>
+    </div>
+    <div id="five" class="number key">
+      <p class="keyText">
+        5
+      </p>
+    </div>
+    <div id="six" class="number key">
+      <p class="keyText">
+        6
+      </p>
+    </div>
+    <div id="seven" class="number key">
+      <p class="keyText">
+        7
+      </p>
+    </div>
+    <div id="eight" class="number key">
+      <p class="keyText">
+        8
+      </p>
+    </div>
+    <div id="nine" class="number key">
+      <p class="keyText">
+        9
+      </p>
+    </div>
+    <div id="ac" class="key">
+      <p class="keyText">
+        AC
+      </p>
+    </div>
+    <div id="plusMinus" class="key">
+      <p class="keyText">
+        +/-
+      </p>
+    </div>
+    <div id="percent" class="key">
+      <p class="keyText">
+        %
+      </p>
+    </div>
+    <div id="add" class="operator key">
+      <p class="keyText">
+        +
+      </p>
+    </div>
+    <div id="subtract" class="operator key">
+      <p class="keyText">
+        -
+      </p>
+    </div>
+    <div id="multiply" class="operator key">
+      <p class="keyText">
+        *
+      </p>
+    </div>
+    <div id="divide" class="operator key">
+      <p class="keyText">
+        /
+      </p>
+    </div>
+    <div id="equals" class="key">
+      <p class="keyText">
+        =
+      </p>
+    </div>
+    <div id="screen"> 
+      <p id="screenText"> 11111111 </p>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="script.js"></script>
+</html>
