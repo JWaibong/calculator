@@ -1,6 +1,7 @@
 let screenText = document.querySelector("#screenText");
 let nums = document.querySelectorAll(".numberKeyText");
 let operators = document.querySelectorAll(".operator");
+let keys = document.querySelectorAll(".key")
 
 let plus = document.querySelector("#add");
 let minus = document.querySelector("#subtract");
@@ -11,6 +12,13 @@ let slash = document.querySelector("#divide");
 
 let inputs = [];
 let operator = [];
+
+keys.forEach(key => {
+    key.addEventListener("click", () => {
+        key.classList.toggle("keyHighlight");
+    });
+});
+
 nums.forEach(num => {
     num.addEventListener("click", e => {
         clearBeginningZero();
@@ -18,11 +26,15 @@ nums.forEach(num => {
             screenText.textContent = e.target.textContent.trim();
             currentOperator = "";
         }
+        else if(screenText.textContent == "Infinity"){
+            screenText.textContent = e.target.textContent.trim();
+        }
         else{
             screenText.textContent += e.target.textContent.trim();
         }
     });
 });
+
 let dot = document.querySelector("#decimal");
 dot.addEventListener("click", e => {
     if(screenText.textContent.match(/\.+/)){
@@ -36,9 +48,26 @@ dot.addEventListener("click", e => {
 let currentOperator = ""
 plus.addEventListener("click", () => {
     plus.classList.toggle("highlighted");
-    if(isMultipleOperatorsActive()){
+    if(currentOperator == "" && Number(screenText.textContent) && (Number(inputs[0]) != null)){
+        evaluate();
         clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("+");
+        currentOperator = "+";
+        plus.classList.toggle("highlighted");
     }
+    else if((Number(inputs[0]) != null) && screenText.textContent == "0"){
+        evaluate();
+        clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("+");
+        currentOperator = "+";
+        plus.classList.toggle("highlighted");
+    }
+
+    else if(isMultipleOperatorsActive()){
+        clearAllOperators();
+    } 
     else{
         currentOperator = "+";
         operator.push("+");
@@ -47,9 +76,25 @@ plus.addEventListener("click", () => {
 });
 minus.addEventListener("click", () => {
     minus.classList.toggle("highlighted");
-    if(isMultipleOperatorsActive()){
+    if(currentOperator == "" && Number(screenText.textContent) && (Number(inputs[0]) != null)){
+        evaluate();
         clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("-");
+        currentOperator = "-";
+        minus.classList.toggle("highlighted");
     }
+    else if((Number(inputs[0]) != null) && screenText.textContent == "0"){
+        evaluate();
+        clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("-");
+        currentOperator = "-";
+        minus.classList.toggle("highlighted");
+    }
+    else if(isMultipleOperatorsActive()){
+        clearAllOperators();
+    } 
     else{
         currentOperator = "-";
         operator.push("-");
@@ -58,9 +103,25 @@ minus.addEventListener("click", () => {
 });
 times.addEventListener("click", () => {
     times.classList.toggle("highlighted");
-    if(isMultipleOperatorsActive()){
+    if(currentOperator == "" && Number(screenText.textContent) && (Number(inputs[0]) != null)) {
+        evaluate();
         clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("\*");
+        currentOperator = "\*";
+        times.classList.toggle("highlighted");
     }
+    else if((Number(inputs[0]) != null) && screenText.textContent == "0"){
+        evaluate();
+        clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("\*");
+        currentOperator = "\*";
+        times.classList.toggle("highlighted");
+    }
+    else if(isMultipleOperatorsActive()){
+        clearAllOperators();
+    } 
     else{
         currentOperator = "\*";
         operator.push("\*");
@@ -69,9 +130,25 @@ times.addEventListener("click", () => {
 });
 slash.addEventListener("click", () => {
     slash.classList.toggle("highlighted");
-    if(isMultipleOperatorsActive()){
+    if(currentOperator == "" && Number(screenText.textContent) && (Number(inputs[0]) != null)){
+        evaluate();
         clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("\/");
+        currentOperator = "\/";
+        slash.classList.toggle("highlighted");
     }
+    else if((Number(inputs[0]) != null) && screenText.textContent == "0"){
+        evaluate();
+        clearAllOperators();
+        inputs.push(screenText.textContent.substring(0, 9));
+        operator.push("\/");
+        currentOperator = "\/";
+        slash.classList.toggle("highlighted");
+    }
+    else if(isMultipleOperatorsActive()){
+        clearAllOperators();
+    } 
     else{
         currentOperator = "\/";
         operator.push("\/");
@@ -102,35 +179,9 @@ percent.addEventListener("click", e => {
 let equals = document.querySelector("#equals");
 equals.addEventListener("click", e => {
     clearAllOperatorsWithoutClearingInput();
-    if(screenText.textContent.match(/\d+/) && operator[0]!==null){
-        switch(operator[0]){
-            case "+":
-                screenText.textContent = `${Number(screenText.textContent) + Number(inputs[0])}`;
-                inputs.pop();
-                operator.pop();
-                break;
-            case "-":
-                screenText.textContent = `${Number(inputs[0]) - Number(screenText.textContent)}`;
-                inputs.pop();
-                operator.pop();
-                break;
-            case "\*":
-                screenText.textContent = `${Number(screenText.textContent) * Number(inputs[0])}`;
-                inputs.pop();
-                operator.pop();
-                break;
-            case "\/":
-                screenText.textContent = `${Number(inputs[0]) / Number(screenText.textContent) }`;
-                inputs.pop();
-                operator.pop();
-                break;
-            default:
-                console.log("error");
-        }
+    evaluate();
     }
-
-
-});
+);
 
 
 function addBeginningZero(){
@@ -162,4 +213,31 @@ function clearAllOperatorsWithoutClearingInput(){
 }
 function clearScreen(){
     screenText.textContent = "0";
+}
+
+function evaluate(){
+    if(screenText.textContent.match(/\d+/) && operator[0] !== null && Number(inputs[0]) != null){
+        switch(operator[0]){
+            case "+":
+                screenText.textContent = `${Number(screenText.textContent) + Number(inputs[0])}`.substring(0,9);
+                inputs.pop();
+                operator.pop();
+                return;
+            case "-":
+                screenText.textContent = `${Number(inputs[0]) - Number(screenText.textContent)}`.substring(0,9);
+                inputs.pop();
+                operator.pop();
+                return;
+            case "\*":
+                screenText.textContent = `${Number(screenText.textContent) * Number(inputs[0])}`.substring(0,9);
+                inputs.pop();
+                operator.pop();
+                return;
+            case "\/":
+                screenText.textContent = `${Number(inputs[0]) / Number(screenText.textContent) }`.substring(0,9);
+                inputs.pop();
+                operator.pop();
+                return;
+        }
+}
 }

@@ -22,12 +22,25 @@
     }
     .key{
       margin: 10px 5px;
-      background-color: aquamarine;
+      background-color: hsl(120, 100%, 76%);
       border-radius: 20px;
       -moz-user-select: -moz-none;
       -khtml-user-select: none;
       -webkit-user-select: none;
 
+    }
+    .operatorKey{
+      margin: 10px 5px;
+      border-radius: 20px;
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+
+    }
+    .keyHighlight{
+      animation-name: highlight;
+      animation-duration: 0.2s;
+      animation-iteration-count: 1;
     }
     .keyText{
       font-size: 20px;
@@ -139,6 +152,10 @@
     .operator.highlighted{
       background-color: hsla(27, 100%, 60%, 1);
     }
+    @keyframes highlight {
+      from { background-color: hsl(120, 100%, 76%); }
+      to { background-color: aquamarine;}
+    }
 
 </style>
 <html>
@@ -220,22 +237,22 @@
         %
       </p>
     </div>
-    <div id="add" class="operator key">
+    <div id="add" class="operator operatorKey">
       <p class="keyText">
         +
       </p>
     </div>
-    <div id="subtract" class="operator key">
+    <div id="subtract" class="operator operatorKey">
       <p class="keyText">
         -
       </p>
     </div>
-    <div id="multiply" class="operator key">
+    <div id="multiply" class="operator operatorKey">
       <p class="keyText">
         *
       </p>
     </div>
-    <div id="divide" class="operator key">
+    <div id="divide" class="operator operatorKey">
       <p class="keyText">
         /
       </p>
